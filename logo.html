@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Logo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            margin: 0;
+        }
+        .logo {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .bar {
+            background-color: white;
+            position: absolute;
+        }
+        .small-bar {
+            width: 15px;
+            height: 10px;
+            top: -2px;
+            left: 12px;
+
+        }
+        .vertical-bar {
+            width: 20px;
+            height: 85px;
+            top: 15px;
+            left: 10px;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 85%, 0% 100%);
+            
+        }
+        .horizontal-top {
+            width: 60px;
+            height: 10px;
+            top: 15px;
+            left: 45px;
+            
+        }
+        .horizontal-bottom {
+            width: 50px;
+            height: 10px;
+            top: 75px;
+            left: 55px;
+        }
+        .horizontal-middle {
+            width: 60px;
+            height: 10px;
+            top: 35px;
+            left: 45px;
+        }
+
+        .vertical-end{
+            width: 10px;
+            height: 50px;
+            top: 35px;
+            left: 95px;
+        }
+        .sqbar{
+            width: 10px;
+            height: 10px;
+            top: 75px;
+            left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <div class="bar up small-bar"></div>
+        <div class="bar up vertical-bar"></div>
+        <div class="bar end vertical-end"></div>
+        <div class="bar side horizontal-top"></div>
+        <div class="bar sqbar"></div>
+        <div class="bar side horizontal-middle"></div> 
+        <div class="bar side horizontal-bottom"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>var tl = gsap.timeline()
+    tl.from(".up", {
+        
+            opacity: 0,
+            rotation: 360,
+            duration:.5,
+            delay: 1,
+            y: -300,
+            stagger: -1,
+         })
+    
+         tl.from(".side",{
+            scale:0,
+            duration:0.2,
+            stagger:1,
+    
+         })
+    
+         tl.from(".end",{
+            opacity: 0,
+            duration:.5,
+            delay: 0.5,
+            y: -300,
+            stagger: -1,
+        })
+    
+        tl.from(".sqbar",{
+            borderRadius:"50%",
+            scale:0,
+            rotation: 360,
+            duration: 2,
+            //repeat: -1,
+            repeatDelay:0,
+            ease: 'bounce.out'
+        })</script>
+</body>
+
+</html> 
+ 
