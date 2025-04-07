@@ -1,53 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Index</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-        }
-        button {
-            display: block;
-            width: 200px;
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Index</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #videoIntro {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #mainContent {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f4f4;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    button {
+      display: block;
+      width: 200px;
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background: #007BFF;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Video Intro -->
+  <video id="videoIntro" autoplay muted>
+    <source src="3D_Logo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Main Homepage Content -->
+  <div id="mainContent">
     <div class="container">
-        <h1>Select a Project</h1>
-        <button onclick="window.location.href='calculator.html'">Calculator</button>
-        <button onclick="window.location.href='temperature_converter.html'">Temperature Converter</button>
-        <button onclick="window.location.href='todo_list.html'">To-Do List</button>
-        <button onclick="window.location.href='digital_clock.html'">Digital Clock</button>
-        <button onclick="window.location.href='quote_generator.html'">Quote Generator</button>
-        <button onclick="window.location.href='logo.html'">Logo Animation</button>
+      <h1>Select a Project</h1>
+      <button onclick="window.location.href='calculator.html'">Calculator</button>
+      <button onclick="window.location.href='temperature_converter.html'">Temperature Converter</button>
+      <button onclick="window.location.href='todo_list.html'">To-Do List</button>
+      <button onclick="window.location.href='digital_clock.html'">Digital Clock</button>
+      <button onclick="window.location.href='quote_generator.html'">Quote Generator</button>
+      <button onclick="window.location.href='logo.html'">Logo Animation</button>
     </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('videoIntro');
+    const mainContent = document.getElementById('mainContent');
+
+    // Set video speed to 3x
+    video.playbackRate = 3.0;
+
+    // After video ends, hide video and show main content
+    video.onended = () => {
+      video.style.display = 'none';
+      mainContent.style.display = 'flex';
+    };
+  </script>
 </body>
 </html>
