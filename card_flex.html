@@ -1,210 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Finance Dashboard</title>
+  <meta charset="UTF-8" />
+  <title>Credit & Savings Dashboard</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
+      width: 100%;
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
-
     body {
       display: flex;
       flex-direction: column;
     }
-
     nav {
-      background: #333;
       display: flex;
+      background-color: #333;
       color: white;
     }
-
     nav button {
       flex: 1;
       padding: 15px;
-      background: #333;
-      color: white;
       border: none;
+      background-color: #333;
+      color: white;
       cursor: pointer;
-      font-size: 16px;
     }
-
-    nav button:hover {
-      background: #555;
+    nav button:hover, nav button.active {
+      background-color: #555;
     }
-
-    .tab-content {
-      flex: 1;
+    .tab {
       display: none;
-      height: 100%;
+      flex: 1;
+      height: calc(100vh - 50px);
       padding: 20px;
+      overflow-y: auto;
     }
-
-    .tab-content.active {
+    .tab.active {
+      display: block;
+    }
+    .dashboard {
       display: flex;
-      flex-direction: row;
+      height: 100%;
+      gap: 20px;
     }
-
-    .left, .right {
+    .partition {
       flex: 1;
       padding: 20px;
-      border: 1px solid #ccc;
-      height: calc(100vh - 50px - 40px);
-      overflow: hidden;
+      border-radius: 10px;
+      background-color: #f0f0f0;
     }
-
-    .left {
-      background-color: #f4f4f4;
-    }
-
-    .right {
-      background-color: #e8f5e9;
-    }
-
-    .section-title {
-      font-weight: bold;
+    h2 {
       margin-bottom: 10px;
-      font-size: 18px;
+      text-align: center;
     }
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-    .field label {
+    label {
       display: block;
-      margin-bottom: 5px;
+      margin-top: 10px;
     }
-
-    .field input {
+    input {
       width: 100%;
       padding: 8px;
-      border: 1px solid #aaa;
-      border-radius: 4px;
-    }
-
-    input[readonly] {
-      background-color: #eee;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <button onclick="showTab('dashboard')">DASHBOARD</button>
-    <button onclick="showTab('card-details')">CARD DETAILS WITH POPUP</button>
-    <button onclick="showTab('billing-details')">BILLING DETAILS</button>
-    <button onclick="showTab('expense-logging')">EXPENSE LOGGING</button>
+    <button class="tab-btn active" data-tab="dashboard">DASHBOARD</button>
+    <button class="tab-btn" data-tab="card-details">CARD DETAILS</button>
+    <button class="tab-btn" data-tab="billing-details">BILLING DETAILS</button>
+    <button class="tab-btn" data-tab="expense-logging">EXPENSE LOGGING</button>
   </nav>
 
-  <!-- Dashboard Tab -->
-  <div id="dashboard" class="tab-content active">
-    <div class="left">
-      <div class="section-title">CARDS</div>
-
-      <div class="field">
+  <div id="dashboard" class="tab active">
+    <div class="dashboard">
+      <div class="partition">
+        <h2>CARDS</h2>
         <label>Overall Credit Limit</label>
-        <input type="text" id="creditLimit" value="100000" readonly>
-      </div>
+        <input type="text" value="100000" readonly>
 
-      <div class="field">
         <label>Overall OS Amount</label>
-        <input type="number" id="osAmount" oninput="recalculate()">
-      </div>
+        <input type="number" id="osAmount" value="0">
 
-      <div class="field">
         <label>Overall Available Amount</label>
         <input type="text" id="availableAmount" readonly>
-      </div>
 
-      <div class="field">
         <label>Balance Amount</label>
         <input type="text" id="balanceAmount" readonly>
-      </div>
 
-      <div class="field">
         <label>Upcoming Payment Date</label>
         <input type="text" id="upcomingDate" readonly>
       </div>
-    </div>
 
-    <div class="right">
-      <div class="section-title">SAVINGS AMOUNTS</div>
-
-      <div class="field">
+      <div class="partition">
+        <h2>SAVINGS AMOUNTS</h2>
         <label>UCO BANK</label>
-        <input type="number" id="uco" oninput="recalculate()">
-      </div>
-      <div class="field">
+        <input type="number" id="uco" value="0">
         <label>UBI</label>
-        <input type="number" id="ubi" oninput="recalculate()">
-      </div>
-      <div class="field">
+        <input type="number" id="ubi" value="0">
         <label>HDFC</label>
-        <input type="number" id="hdfc" oninput="recalculate()">
-      </div>
-      <div class="field">
+        <input type="number" id="hdfc" value="0">
         <label>ICICI</label>
-        <input type="number" id="icici" oninput="recalculate()">
-      </div>
-      <div class="field">
+        <input type="number" id="icici" value="0">
         <label><strong>Total Savings Amount</strong></label>
         <input type="text" id="totalSavings" readonly>
       </div>
     </div>
   </div>
 
-  <!-- Placeholder Tabs -->
-  <div id="card-details" class="tab-content">CARD DETAILS WITH POPUP - Content here</div>
-  <div id="billing-details" class="tab-content">BILLING DETAILS - Content here</div>
-  <div id="expense-logging" class="tab-content">EXPENSE LOGGING - Content here</div>
+  <div id="card-details" class="tab">
+    <h2 style="text-align: center;">CARD DETAILS WITH POPUP</h2>
+    <p style="text-align: center;">(You can add your popup card details logic here.)</p>
+  </div>
+
+  <div id="billing-details" class="tab">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Billing Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+    th, td {
+      border: 1px solid black;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #e6e6e6;
+    }
+    .total-row td {
+      font-weight: bold;
+    }
+    .total-row td:last-child {
+      text-align: right;
+    }
+    .italic {
+      font-style: italic;
+      text-decoration: underline;
+    }
+    input[type="number"] {
+      width: 100px;
+      padding: 4px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">BILLING DETAILS</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Card No.</th>
+        <th>Card Name</th>
+        <th>Next Billing Date</th>
+        <th>Next Bill due Date</th>
+        <th>Current Bills</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3254</td>
+        <td rowspan="3">HDFC</td>
+        <td>20 April</td>
+        <td>10 May</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>2604</td>
+        <td>20 April</td>
+        <td>10 May</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>7327</td>
+        <td>01 May</td>
+        <td>21 March</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>3447</td>
+        <td rowspan="2">AXIS</td>
+        <td>15 April</td>
+        <td>2 April</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>2998</td>
+        <td>23 April</td>
+        <td>11 April</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>3003</td>
+        <td>AmazonPay</td>
+        <td>12 April</td>
+        <td>30 March</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>4008</td>
+        <td rowspan="3">ICICI</td>
+        <td>02 May</td>
+        <td>20 April</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>3005</td>
+        <td>02 May</td>
+        <td>20 March</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr>
+        <td>3104</td>
+        <td>02 May</td>
+        <td>20 March</td>
+        <td><input type="number" class="bill" value="0"></td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4" class="italic">Total OS Amount</td>
+        <td id="totalAmount">0</td>
+      </tr>
+    </tbody>
+  </table>
 
   <script>
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
+    function calculateTotal() {
+      const inputs = document.querySelectorAll('.bill');
+      let total = 0;
+      inputs.forEach(input => {
+        const val = parseFloat(input.value);
+        if (!isNaN(val)) {
+          total += val;
+        }
       });
-      document.getElementById(tabId).classList.add('active');
+      document.getElementById('totalAmount').textContent = total.toLocaleString();
     }
 
-    function recalculate() {
-		const creditLimit = 100000;
-		const osAmount = parseFloat(document.getElementById('osAmount').value) || 0;
-		  const uco = parseFloat(document.getElementById('uco').value) || 0;
-		  const ubi = parseFloat(document.getElementById('ubi').value) || 0;
-		  const hdfc = parseFloat(document.getElementById('hdfc').value) || 0;
-		  const icici = parseFloat(document.getElementById('icici').value) || 0;
+    // Attach listener to every input
+    document.querySelectorAll('.bill').forEach(input => {
+      input.addEventListener('input', calculateTotal);
+    });
 
-		  const totalSavings = uco + ubi + hdfc + icici;
-		  const availableAmount = creditLimit - osAmount;
-		  const balanceAmount = totalSavings - osAmount;
+    // Initial calculation
+    calculateTotal();
+  </script>
+  <script>
+  function calculateTotal() {
+    const inputs = document.querySelectorAll('.bill');
+    let total = 0;
+    inputs.forEach(input => {
+      const val = parseFloat(input.value);
+      if (!isNaN(val)) {
+        total += val;
+      }
+    });
 
-		  document.getElementById('totalSavings').value = totalSavings.toFixed(2);
-		  document.getElementById('availableAmount').value = availableAmount.toFixed(2);
-		  document.getElementById('balanceAmount').value = balanceAmount.toFixed(2);
-}
+    document.getElementById('totalAmount').textContent = total.toLocaleString();
 
+    // Update osAmount in Dashboard tab
+    const osAmountField = document.getElementById('osAmount');
+    if (osAmountField) {
+      osAmountField.value = total;
+      osAmountField.dispatchEvent(new Event('input')); // Trigger its input event
+    }
+  }
+
+  // Attach listeners to all input fields
+  document.querySelectorAll('.bill').forEach(input => {
+    input.addEventListener('input', calculateTotal);
+  });
+
+  // Initial calculation
+  calculateTotal();
+</script>
+
+
+</body>
+</html>
+
+  </div>
+
+  <div id="expense-logging" class="tab">
+    <h2 style="text-align: center;">EXPENSE LOGGING</h2>
+    <p style="text-align: center;">(Add your expense input form or log here.)</p>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(tab => tab.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    function updateCalculations() {
+      const uco = parseFloat(document.getElementById('uco').value) || 0;
+      const ubi = parseFloat(document.getElementById('ubi').value) || 0;
+      const hdfc = parseFloat(document.getElementById('hdfc').value) || 0;
+      const icici = parseFloat(document.getElementById('icici').value) || 0;
+      const osAmount = parseFloat(document.getElementById('osAmount').value) || 0;
+
+      const totalSavings = uco + ubi + hdfc + icici;
+      const creditLimit = 100000;
+      const available = creditLimit - osAmount;
+      const balance = osAmount - totalSavings;
+
+      document.getElementById('totalSavings').value = totalSavings;
+      document.getElementById('availableAmount').value = available;
+      document.getElementById('balanceAmount').value = balance;
+    }
 
     function setUpcomingDate() {
       const date = new Date();
       date.setDate(date.getDate() + 5);
-      const formatted = date.toISOString().split('T')[0];
-      document.getElementById('upcomingDate').value = formatted;
+      document.getElementById('upcomingDate').value = date.toDateString();
     }
 
-    window.onload = () => {
-      recalculate();
-      setUpcomingDate();
-    };
-  </script>
+    document.getElementById('osAmount').addEventListener('input', updateCalculations);
+    ['uco', 'ubi', 'hdfc', 'icici'].forEach(id => {
+      document.getElementById(id).addEventListener('input', updateCalculations);
+    });
 
+    document.querySelectorAll('.bill').forEach(input => {
+      input.addEventListener('input', () => {
+        let total = 0;
+        document.querySelectorAll('.bill').forEach(bill => {
+          total += parseFloat(bill.value) || 0;
+        });
+        document.getElementById('totalAmount').textContent = total.toLocaleString();
+      });
+    });
+
+    updateCalculations();
+    setUpcomingDate();
+	
+  </script>
 </body>
 </html>
